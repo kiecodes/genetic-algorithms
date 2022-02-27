@@ -1,3 +1,4 @@
+from typing import List
 from algorithms.genetic import Genome
 from collections import namedtuple
 
@@ -20,11 +21,11 @@ second_example = [
 ] + first_example
 
 
-def generate_things(num: int) -> [Thing]:
+def generate_things(num: int) -> List[Thing]:
     return [Thing(f"thing{i}", i, i) for i in range(1, num+1)]
 
 
-def fitness(genome: Genome, things: [Thing], weight_limit: int) -> int:
+def fitness(genome: Genome, things: List[Thing], weight_limit: int) -> int:
     if len(genome) != len(things):
         raise ValueError("genome and things must be of same length")
 
@@ -41,7 +42,7 @@ def fitness(genome: Genome, things: [Thing], weight_limit: int) -> int:
     return value
 
 
-def from_genome(genome: Genome, things: [Thing]) -> [Thing]:
+def from_genome(genome: Genome, things: List[Thing]) -> List[Thing]:
     result = []
     for i, thing in enumerate(things):
         if genome[i] == 1:
@@ -50,19 +51,19 @@ def from_genome(genome: Genome, things: [Thing]) -> [Thing]:
     return result
 
 
-def to_string(things: [Thing]):
+def to_string(things: List[Thing]):
     return f"[{', '.join([t.name for t in things])}]"
 
 
-def value(things: [Thing]):
+def value(things: List[Thing]):
     return sum([t.value for t in things])
 
 
-def weight(things: [Thing]):
+def weight(things: List[Thing]):
     return sum([p.weight for p in things])
 
 
-def print_stats(things: [Thing]):
+def print_stats(things: List[Thing]):
     print(f"Things: {to_string(things)}")
     print(f"Value {value(things)}")
     print(f"Weight: {weight(things)}")
